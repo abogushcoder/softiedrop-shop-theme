@@ -44,7 +44,7 @@
   -%}
 
   <product-component view-event-payload="{{ card_product | standard_event_data: 'view', context: product_view_context | escape }}">
-    <div class="card-wrapper product-card-wrapper underline-links-hover">
+    <div class="card-wrapper product-card-wrapper underline-links-hover{% if card_product and card_product.available == false %} softie-card--soldout{% endif %}">
       <div
         class="
           card card--{{ settings.card_style }}
@@ -209,6 +209,7 @@
               {%- endif -%}
 
               {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+              {%- render 'softie-card-extras', card_product: card_product -%}{%- comment -%} softie: texture badge + low stock {%- endcomment -%}
               {%- if card_product.quantity_price_breaks_configured? -%}
                 {% if card_product.variants_count == 1 and quick_add == 'bulk' %}
                   {% liquid
@@ -581,7 +582,7 @@
       assign ratio = 0.8
     endif
   -%}
-  <div class="card-wrapper product-card-wrapper underline-links-hover">
+  <div class="card-wrapper product-card-wrapper underline-links-hover{% if card_product and card_product.available == false %} softie-card--soldout{% endif %}">
     <div
       class="
         card card--{{ settings.card_style }}

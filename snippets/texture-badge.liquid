@@ -1,0 +1,22 @@
+{%- comment -%}
+  softie: texture pill (Foam / Mochi / Gel), read from the product type.
+  Product types: "Foam", "Mochi & silicone", "Gel". Anything else shows nothing.
+  Usage: {% render 'texture-badge', product: product %}
+{%- endcomment -%}
+{%- liquid
+  assign t = product.type | downcase
+  assign label = blank
+  if t contains 'foam'
+    assign label = 'Foam'
+    assign mod = 'foam'
+  elsif t contains 'mochi' or t contains 'silicone'
+    assign label = 'Mochi'
+    assign mod = 'mochi'
+  elsif t contains 'gel'
+    assign label = 'Gel'
+    assign mod = 'gel'
+  endif
+-%}
+{%- if label != blank -%}
+  <span class="softie-texture softie-texture--{{ mod }}">{{ label }}</span>
+{%- endif -%}

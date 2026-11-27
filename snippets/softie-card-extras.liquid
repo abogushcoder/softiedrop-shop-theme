@@ -1,0 +1,24 @@
+{%- comment -%}
+  softie: extra lines on a product card: the texture pill, and "Only 3 left" when
+  store stock is 5 or fewer. Sold-out cards get Dawn's Sold out badge plus a dimmed photo (softie.css).
+  Usage: {% render 'softie-card-extras', card_product: card_product %}
+{%- endcomment -%}
+{%- if card_product -%}
+  {%- liquid
+    assign left = 0
+    assign tracked = true
+    for v in card_product.variants
+      if v.inventory_management != 'shopify'
+        assign tracked = false
+      elsif v.inventory_quantity > 0
+        assign left = left | plus: v.inventory_quantity
+      endif
+    endfor
+  -%}
+  <div class="softie-card-extras">
+    {%- render 'texture-badge', product: card_product -%}
+    {%- if tracked and card_product.available and left > 0 and left <= 5 -%}
+      <span class="softie-stock">Only {{ left }} left</span>
+    {%- endif -%}
+  </div>
+{%- endif -%}

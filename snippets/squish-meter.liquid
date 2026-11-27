@@ -1,0 +1,34 @@
+{%- comment -%}
+  softie: slow-rise rating as 1–5 jelly blobs, read from the product metafield softie.squish_meter (integer 1–5).
+  Shows nothing when the metafield is empty.
+  Usage: {% render 'squish-meter', product: product %}
+{%- endcomment -%}
+{%- assign rating = product.metafields.softie.squish_meter.value | default: 0 | plus: 0 | at_least: 0 | at_most: 5 -%}
+{%- if rating > 0 -%}
+  {%- liquid
+    case rating
+      when 1
+        assign hint = 'Springs back fast'
+      when 2
+        assign hint = 'Quick rise'
+      when 3
+        assign hint = 'Medium slow-rise'
+      when 4
+        assign hint = 'Slow-rise'
+      else
+        assign hint = 'Super slow-rise'
+    endcase
+  -%}
+  <div class="softie-meter" role="img" aria-label="Squish meter: {{ rating }} out of 5, {{ hint | downcase }}">
+    <span class="softie-meter__label" aria-hidden="true">Squish meter</span>
+    <span class="softie-meter__blobs" aria-hidden="true">
+      {%- for i in (1..5) -%}
+        <svg viewBox="0 0 40 30" focusable="false">
+          <path d="M4 22C4 10 11 4 20 4s16 6 16 18c0 3-2 4-5 4H9c-3 0-5-1-5-4z" fill="{% if i <= rating %}#FF8DA6{% else %}#FFFFFF{% endif %}" stroke="#3B1E2B" stroke-width="2.5" {% if i > rating %}stroke-opacity=".45"{% endif %}/>
+          {%- if i <= rating -%}<ellipse cx="14" cy="10" rx="4" ry="2.2" fill="#fff" opacity=".6" transform="rotate(-25 14 10)"/>{%- endif -%}
+        </svg>
+      {%- endfor -%}
+    </span>
+    <span class="softie-meter__hint" aria-hidden="true">{{ hint }}</span>
+  </div>
+{%- endif -%}

@@ -184,7 +184,7 @@
       {%- if request.page_type == 'index' -%}
         <h1 class="header__heading">
       {%- endif -%}
-      <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
+      <a href="{{ settings.softie_main_site_url | default: routes.root_url }}" class="header__heading-link link link--text focus-inset">{%- comment -%} softie: logo links to softiedrop.com {%- endcomment -%}
         {%- if settings.logo != blank -%}
           <div class="header__heading-logo-wrapper">
             {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
@@ -205,7 +205,7 @@
             }}
           </div>
         {%- else -%}
-          <span class="h2">{{ shop.name }}</span>
+          {%- render 'softie-logo' -%}{%- comment -%} softie: brand logo when none is uploaded {%- endcomment -%}
         {%- endif -%}
       </a>
       {%- if request.page_type == 'index' -%}
@@ -227,7 +227,7 @@
       {%- if request.page_type == 'index' -%}
         <h1 class="header__heading">
       {%- endif -%}
-      <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
+      <a href="{{ settings.softie_main_site_url | default: routes.root_url }}" class="header__heading-link link link--text focus-inset">{%- comment -%} softie: logo links to softiedrop.com {%- endcomment -%}
         {%- if settings.logo != blank -%}
           <div class="header__heading-logo-wrapper">
             {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
@@ -248,7 +248,7 @@
             }}
           </div>
         {%- else -%}
-          <span class="h2">{{ shop.name }}</span>
+          {%- render 'softie-logo' -%}{%- comment -%} softie: brand logo when none is uploaded {%- endcomment -%}
         {%- endif -%}
       </a>
       {%- if request.page_type == 'index' -%}
@@ -299,6 +299,12 @@
         {%- endcase -%}
       {%- endfor -%}
 
+      {%- comment -%} softie: Watch on TikTok pill, same as the main page {%- endcomment -%}
+      {%- if section.settings.softie_show_tiktok and settings.softie_tiktok_url != blank -%}
+        <a href="{{ settings.softie_tiktok_url }}" class="softie-pill softie-header-tiktok" target="_blank" rel="noopener">
+          {{- section.settings.softie_tiktok_label | default: 'Watch on TikTok' | escape -}}
+        </a>
+      {%- endif -%}
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
         {% if cart == empty %}
           <span class="svg-wrapper">{{ 'icon-cart-empty.svg' | inline_asset_content }}</span>
@@ -504,6 +510,22 @@
   "class": "section-header",
   "max_blocks": 3,
   "settings": [
+    {
+      "type": "header",
+      "content": "Softie Drop"
+    },
+    {
+      "type": "checkbox",
+      "id": "softie_show_tiktok",
+      "label": "Show Watch on TikTok button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "softie_tiktok_label",
+      "label": "TikTok button text",
+      "default": "Watch on TikTok"
+    },
     {
       "type": "select",
       "id": "logo_position",
