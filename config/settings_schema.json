@@ -8,6 +8,46 @@
     "theme_support_url": "https://support.shopify.com/"
   },
   {
+    "name": "Softie Drop",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Links"
+      },
+      {
+        "type": "url",
+        "id": "softie_main_site_url",
+        "label": "Main website",
+        "default": "https://softiedrop.com",
+        "info": "The logo links here."
+      },
+      {
+        "type": "url",
+        "id": "softie_tiktok_url",
+        "label": "TikTok profile",
+        "default": "https://www.tiktok.com/@softiedrop"
+      },
+      {
+        "type": "text",
+        "id": "softie_worker_url",
+        "label": "Signup and schedule Worker address",
+        "default": "https://softiedrop-signup.aeb0975.workers.dev",
+        "info": "Used for the Next live banner and live-alert signups."
+      },
+      {
+        "type": "header",
+        "content": "Shipping"
+      },
+      {
+        "type": "number",
+        "id": "softie_free_shipping_threshold",
+        "label": "Free shipping from (USD)",
+        "default": 35,
+        "info": "Only drives the cart progress bar. Set the real free-shipping rate in Settings → Shipping and delivery to the same number."
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.logo.name",
     "settings": [
       {

@@ -1,0 +1,15 @@
+{%- comment -%}
+  softie: the Softie Drop blob and name, used when no logo image is uploaded.
+  Same drawing as the main site's header logo.
+{%- endcomment -%}
+<span class="softie-logo">
+  <svg class="softie-logo__blob" viewBox="0 0 120 92" width="44" height="34" aria-hidden="true" focusable="false">
+    <ellipse cx="60" cy="87" rx="40" ry="5" fill="#3B1E2B" opacity=".12"/>
+    <path d="M14 66C14 30 34 12 60 12s46 18 46 54c0 10-6 12-14 12H28c-8 0-14-2-14-12z" fill="#FF8DA6"/>
+    <ellipse cx="44" cy="28" rx="11" ry="6" fill="#fff" opacity=".55" transform="rotate(-25 44 28)"/>
+    <circle cx="46" cy="50" r="4.5" fill="#3B1E2B"/><circle cx="74" cy="50" r="4.5" fill="#3B1E2B"/>
+    <ellipse cx="35" cy="60" rx="7" ry="4" fill="#F2557A" opacity=".45"/><ellipse cx="85" cy="60" rx="7" ry="4" fill="#F2557A" opacity=".45"/>
+    <path d="M54 58q6 5 12 0" stroke="#3B1E2B" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </svg>
+  <span class="softie-logo__name">{{ shop.name | default: 'Softie Drop' | escape }}</span>
+</span>

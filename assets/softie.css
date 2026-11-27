@@ -1,0 +1,191 @@
+/*
+  Softie Drop brand layer for Dawn.
+  Matches softiedrop.com: mint #CFF3E4, pink #FF8DA6, plum #3B1E2B, white, Fredoka,
+  rounded cartoon-sticker shapes with plum outlines and a soft solid shadow.
+  Colors and corner sizes mostly come from theme settings; this file adds the font,
+  the squish motion and the Softie-only pieces. Keep Dawn's own files as untouched as possible.
+*/
+:root {
+  --softie-mint: #CFF3E4;
+  --softie-mint-deep: #B2E6CF;
+  --softie-pink: #FF8DA6;
+  --softie-pink-deep: #EE6C8B;
+  --softie-plum: #3B1E2B;
+  --softie-white: #FFFFFF;
+  --softie-alert: #A3142F;
+  --font-body-family: 'Fredoka', ui-rounded, 'Arial Rounded MT Bold', system-ui, sans-serif;
+  --font-heading-family: 'Fredoka', ui-rounded, 'Arial Rounded MT Bold', system-ui, sans-serif;
+  --font-body-weight: 400;
+  --font-body-weight-bold: 600;
+  --font-heading-weight: 700;
+  --font-body-style: normal;
+  --font-heading-style: normal;
+}
+
+body, .h0, .h1, .h2, .h3, .h4, .h5, h1, h2, h3, h4, h5 { letter-spacing: 0; }
+h1, h2, h3, .h0, .h1, .h2, .h3 { text-wrap: balance; line-height: 1.08; }
+.rte, p { text-wrap: pretty; }
+
+/* ---------- buttons: plum label on pink, pill shape, sticker shadow ---------- */
+.button, .shopify-challenge__button, .customer button, button.shopify-payment-button__button--unbranded {
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.button--secondary { --color-button: 255, 255, 255; }
+.softie-pill {
+  display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+  min-height: 4.4rem; padding: 0 1.8rem; border-radius: 999px;
+  background: var(--softie-pink); color: var(--softie-plum);
+  border: 2px solid var(--softie-plum); box-shadow: 0 4px 0 var(--softie-plum);
+  font: 600 1.5rem/1 var(--font-body-family); text-decoration: none; white-space: nowrap;
+}
+.softie-pill:hover { text-decoration: none; }
+.softie-pill--plum { background: var(--softie-plum); color: var(--softie-mint); box-shadow: 0 4px 0 var(--softie-pink-deep); }
+.softie-pill:focus-visible { outline: 3px solid var(--softie-plum); outline-offset: 3px; }
+
+/* ---------- the squish: ~150 ms squash and stretch on hover and tap ---------- */
+@keyframes softie-squish {
+  0% { transform: scale(1, 1); }
+  45% { transform: scale(1.04, .96); }
+  100% { transform: scale(1, 1); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .button:not([disabled]):hover, .button:not([disabled]):active,
+  .softie-pill:hover, .softie-pill:active,
+  .card-wrapper:hover > .card, .card-wrapper:active > .card,
+  .card-wrapper:hover .card--card, .card-wrapper:active .card--card {
+    animation: softie-squish 150ms ease-out;
+  }
+  .button:not([disabled]):active, .softie-pill:active { transform: translateY(2px); }
+}
+
+/* ---------- header: same as the main page ---------- */
+.header-wrapper { border-bottom: 0; }
+.header__heading-link { padding: .4rem; }
+.softie-logo { display: inline-flex; align-items: center; gap: 1rem; color: var(--softie-plum); }
+.softie-logo__blob { flex: none; width: 4.4rem; height: auto; }
+.softie-logo__name { font: 700 2.2rem/1 var(--font-heading-family); white-space: nowrap; }
+.softie-header-tiktok { margin-inline: .6rem; }
+@media screen and (max-width: 749px) {
+  .softie-logo__name { font-size: 1.9rem; }
+  .softie-header-tiktok { min-height: 3.8rem; padding: 0 1.2rem; font-size: 1.3rem; }
+}
+@media screen and (max-width: 420px) {
+  .softie-logo__name { display: none; }
+}
+
+/* ---------- product cards ---------- */
+.card-wrapper .card { transform-origin: 50% 90%; }
+.card__heading { font-weight: 600; }
+.softie-card-extras { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; margin-top: .6rem; }
+.softie-stock { font-size: 1.4rem; font-weight: 600; color: var(--softie-plum); display: inline-flex; align-items: center; gap: .5rem; }
+.softie-stock::before { content: ''; width: .9rem; height: .9rem; border-radius: 50%; background: var(--softie-pink-deep); }
+.softie-card--soldout .card__media { filter: saturate(.35); }
+.softie-card--soldout .card__media::after {
+  content: ''; position: absolute; inset: 0; background: rgba(207, 243, 228, .5); pointer-events: none;
+}
+.softie-card--soldout .badge { font-size: 1.4rem; padding: .6rem 1.4rem; }
+
+/* ---------- texture badge ---------- */
+.softie-texture {
+  display: inline-flex; align-items: center; min-height: 2.6rem; padding: 0 1.1rem; border-radius: 999px;
+  border: 2px solid var(--softie-plum); font: 600 1.3rem/1 var(--font-body-family); color: var(--softie-plum);
+  background: var(--softie-pink);
+}
+.softie-texture--mochi { background: var(--softie-mint); }
+.softie-texture--gel { background: var(--softie-white); }
+
+/* ---------- squish meter ---------- */
+.softie-meter { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem 1.2rem; margin: 1.2rem 0; }
+.softie-meter__label { font-weight: 600; }
+.softie-meter__blobs { display: inline-flex; gap: .4rem; }
+.softie-meter__blobs svg { width: 2.8rem; height: auto; }
+.softie-meter__hint { font-size: 1.4rem; opacity: .8; }
+.softie-facts { display: flex; flex-wrap: wrap; gap: .8rem; margin: .4rem 0 1.2rem; }
+.softie-live-link { display: inline-flex; align-items: center; gap: .8rem; font-weight: 600; color: var(--softie-plum); }
+.softie-live-link::before { content: ''; width: 1rem; height: 1rem; border-radius: 50%; background: #FF2D55; flex: none; }
+.softie-safety { font-size: 1.4rem; border: 2px solid var(--softie-plum); border-radius: 16px; padding: 1rem 1.4rem; background: var(--softie-white); }
+
+/* ---------- free-shipping progress bar (cart drawer and cart page) ---------- */
+.softie-ship { margin: 0 0 1.6rem; }
+.softie-ship__text { margin: 0 0 .8rem; font-weight: 600; font-size: 1.5rem; }
+.softie-ship__track { height: 1.2rem; border-radius: 999px; border: 2px solid var(--softie-plum); background: var(--softie-white); overflow: hidden; }
+.softie-ship__fill { height: 100%; background: var(--softie-pink); border-right: 2px solid var(--softie-plum); transition: width .3s ease; }
+.softie-ship__fill[style*="100%"] { border-right: 0; }
+.drawer__header + .softie-ship, .drawer .softie-ship { padding: 0 3rem; }
+@media (prefers-reduced-motion: reduce) { .softie-ship__fill { transition: none; } }
+
+/* ---------- home hero ---------- */
+.softie-hero { text-align: center; padding: clamp(3.6rem, 7vw, 8rem) 1.6rem clamp(2.4rem, 4vw, 4.8rem); }
+.softie-hero__title { font-size: clamp(3.6rem, 7vw, 7.2rem); margin: 0 auto 1.4rem; max-width: 14ch; }
+.softie-hero__text { font-size: clamp(1.7rem, 2vw, 2rem); margin: 0 auto 2.4rem; max-width: 40ch; }
+.softie-hero__blobs { display: flex; justify-content: center; align-items: flex-end; gap: clamp(.6rem, 2vw, 1.8rem); margin: 3.2rem auto 0; max-width: 64rem; }
+.softie-hero__blobs svg { width: clamp(4.8rem, 11vw, 9.6rem); height: auto; }
+.softie-hero__blobs svg:nth-child(2n) { width: clamp(4rem, 9vw, 8rem); }
+
+/* ---------- next-live banner ---------- */
+.softie-live-banner { padding: 1.2rem max(4vw, 1.6rem); }
+.softie-live-banner__box {
+  max-width: 120rem; margin: 0 auto; min-height: 6.4rem; display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: space-between; gap: 1rem 2rem; padding: 1.2rem 2rem; border-radius: 24px;
+  background: var(--softie-pink); color: var(--softie-plum); border: 2px solid var(--softie-plum); box-shadow: 0 6px 0 rgba(59, 30, 43, .14);
+}
+.softie-live-banner[data-state="loading"] .softie-live-banner__box { visibility: hidden; }
+.softie-live-banner__text { display: inline-flex; align-items: center; gap: 1rem; font: 600 clamp(1.7rem, 2.2vw, 2.1rem)/1.2 var(--font-body-family); margin: 0; }
+.softie-live-banner__dot { width: 1.2rem; height: 1.2rem; border-radius: 50%; background: var(--softie-plum); flex: none; }
+.softie-live-banner[data-state="live"] .softie-live-banner__dot { background: #FF2D55; }
+.softie-live-banner__clock { font-variant-numeric: tabular-nums; }
+.softie-live-banner .softie-pill { background: var(--softie-white); }
+@media (prefers-reduced-motion: no-preference) {
+  .softie-live-banner[data-state="live"] .softie-live-banner__dot { animation: softie-pulse 1.2s infinite; }
+}
+@keyframes softie-pulse { 50% { box-shadow: 0 0 0 7px rgba(255, 45, 85, .22); } }
+
+/* ---------- live-alerts signup (same form as the main page) ---------- */
+.softie-signup { max-width: 120rem; margin: 0 auto; }
+.softie-signup__box { border-radius: 24px; padding: clamp(2.4rem, 4vw, 4.8rem); background: var(--softie-white); border: 2px solid var(--softie-plum); box-shadow: 0 6px 0 rgba(59, 30, 43, .14); }
+.softie-signup__title { margin: 0 0 .8rem; }
+.softie-signup__text { margin: 0 0 2rem; max-width: 52ch; }
+.softie-form { display: grid; gap: 1.4rem; max-width: 52rem; justify-items: start; }
+.softie-form__field { display: grid; gap: .6rem; width: 100%; font-weight: 600; }
+.softie-form__opt { font-weight: 400; opacity: .75; }
+.softie-form input[type="email"], .softie-form input[type="tel"], .softie-form input[type="password"] {
+  width: 100%; min-height: 5.2rem; border-radius: 999px; border: 2px solid var(--softie-plum); padding: 0 2rem;
+  font: 1.6rem var(--font-body-family); background: var(--softie-white); color: var(--softie-plum);
+}
+.softie-form input:focus-visible { outline: 3px solid var(--softie-plum); outline-offset: 2px; box-shadow: none; }
+.softie-form input[aria-invalid="true"] { border-color: var(--softie-alert); box-shadow: 0 0 0 3px rgba(163, 20, 47, .18); }
+.softie-form__check { display: flex; gap: 1.2rem; align-items: flex-start; font-size: 1.5rem; line-height: 1.45; font-weight: 400; }
+.softie-form__check input { width: 2.2rem; height: 2.2rem; margin: .2rem 0 0; flex: none; accent-color: var(--softie-plum); }
+.softie-form__msg { margin: 0; min-height: 1.5em; font-weight: 500; }
+.softie-form__msg.err { color: var(--softie-alert); font-weight: 600; }
+.softie-form__msg.good { font-weight: 600; }
+.softie-form [hidden] { display: none !important; }
+.softie-form button[disabled] { opacity: .6; cursor: progress; }
+.softie-visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- newest designs ---------- */
+.softie-newest__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 1rem 2rem; margin-bottom: 2.4rem; }
+.softie-newest__head h2 { margin: 0; }
+
+/* ---------- password (hidden-mode) page ---------- */
+.password { background: var(--softie-mint); }
+.softie-soon { min-height: 100svh; display: grid; place-items: center; padding: 4rem 1.6rem 6rem; text-align: center; }
+.softie-soon__in { width: 100%; max-width: 58rem; display: grid; gap: 2rem; justify-items: center; }
+.softie-soon .softie-logo__blob { width: 9.6rem; }
+.softie-soon .softie-logo { flex-direction: column; gap: 1.2rem; }
+.softie-soon .softie-logo__name { display: inline; font-size: 2.8rem; }
+.softie-soon__title { font-size: clamp(3.2rem, 6vw, 5.2rem); margin: 0; }
+.softie-soon__text { margin: 0; font-size: 1.8rem; max-width: 38ch; }
+.softie-soon .softie-signup__box { text-align: left; width: 100%; }
+.softie-soon__pw { font-size: 1.5rem; }
+.softie-soon__pw summary { cursor: pointer; text-decoration: underline; text-underline-offset: .3rem; display: inline-block; padding: 1rem; min-height: 4.4rem; }
+.softie-soon__pw form { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 1rem; }
+.softie-soon__pw input[type="password"] { max-width: 28rem; }
+.softie-soon__pw .softie-form__msg { width: 100%; }
+.password-main { flex-grow: 1; }
+
+/* ---------- reduced motion: nothing moves ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .button, .softie-pill, .card { animation: none !important; transition: none !important; }
+}
