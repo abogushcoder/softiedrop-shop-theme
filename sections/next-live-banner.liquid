@@ -1,0 +1,36 @@
+{%- comment -%}
+  softie: "Next live in 2d 4h" / "Live now — watch on TikTok" banner.
+  Reads GET <Worker>/schedule (the same Google Sheet as softiedrop.com), shows times in the
+  visitor's own time zone, and hides itself if the Worker can't be reached or nothing is scheduled.
+  Its space is reserved while loading so the page doesn't jump when it appears.
+{%- endcomment -%}
+{%- assign worker = settings.softie_worker_url | default: 'https://softiedrop-signup.aeb0975.workers.dev' -%}
+<div
+  class="softie-live-banner color-{{ section.settings.color_scheme }}"
+  data-softie-live
+  data-state="loading"
+  data-worker="{{ worker | escape }}"
+  data-tiktok="{{ settings.softie_tiktok_url | escape }}"
+>
+  <div class="softie-live-banner__box">
+    <p class="softie-live-banner__text">
+      <span class="softie-live-banner__dot" aria-hidden="true"></span>
+      <span data-softie-live-text>{{ section.settings.loading_text | escape }}</span>
+    </p>
+    <a class="softie-pill" data-softie-live-link href="{{ settings.softie_tiktok_url | default: '#' }}" target="_blank" rel="noopener">Set a reminder</a>
+  </div>
+</div>
+<script src="{{ 'softie-live.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Next live banner",
+  "tag": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Shows the next TikTok live from your schedule sheet. Hides itself if nothing is scheduled or the schedule can't be loaded." },
+    { "type": "text", "id": "loading_text", "label": "Text while loading", "default": "Checking the live schedule…" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" }
+  ],
+  "presets": [{ "name": "Next live banner" }]
+}
+{% endschema %}

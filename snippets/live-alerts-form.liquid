@@ -1,0 +1,25 @@
+{%- comment -%}
+  softie: the live-alerts signup form, same fields and wording as softiedrop.com.
+  Posts to the Worker (POST /), which adds the person to Brevo list 3 (email) and,
+  with the box ticked, list 4 (text alerts). The Worker must list this site's address in ALLOWED_ORIGINS.
+  Usage: {% render 'live-alerts-form', id: section.id %}
+{%- endcomment -%}
+{%- assign worker = settings.softie_worker_url | default: 'https://softiedrop-signup.aeb0975.workers.dev' -%}
+<form class="softie-form" data-softie-signup data-worker="{{ worker | escape }}" novalidate>
+  <label class="softie-form__field" for="SoftieEmail-{{ id }}">
+    <span>Email</span>
+    <input id="SoftieEmail-{{ id }}" name="email" type="email" required placeholder="you@email.com" autocomplete="email">
+  </label>
+  <label class="softie-form__field" for="SoftiePhone-{{ id }}">
+    <span>Phone for live alerts <span class="softie-form__opt">(optional)</span></span>
+    <input id="SoftiePhone-{{ id }}" name="phone" type="tel" placeholder="(555) 123-4567" autocomplete="tel" inputmode="tel">
+  </label>
+  <label class="softie-form__check" data-sms-row hidden>
+    <input name="smsOk" type="checkbox">
+    <span>Text me when Softie Drop goes live. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help.</span>
+  </label>
+  <div class="softie-visually-hidden" aria-hidden="true"><input name="sd_hp_x7" tabindex="-1" autocomplete="off"></div>
+  <button class="button button--primary" type="submit">Notify me</button>
+  <p class="softie-form__msg" role="status"></p>
+</form>
+<script src="{{ 'softie-signup.js' | asset_url }}" defer="defer"></script>
