@@ -76,6 +76,7 @@
           </span>
         </button>
       </div>
+      {%- render 'free-shipping-bar' -%}{%- comment -%} softie: free-shipping progress {%- endcomment -%}
       <cart-drawer-items
         view-event-payload="{{ cart | standard_event_data: 'view', context: 'dialog' | escape }}"
         view-event-trigger="manual"

@@ -1,0 +1,26 @@
+{%- comment -%}
+  softie: "You're $X away from free shipping" bar for the cart drawer and cart page.
+  The threshold comes from one theme setting (Theme settings → Softie Drop → Free shipping from).
+  It only drives this bar: the real free-shipping rate is set in Settings → Shipping and delivery.
+  Lives inside the parts of the cart Dawn re-renders, so it updates when the cart changes.
+{%- endcomment -%}
+{%- assign threshold = settings.softie_free_shipping_threshold | default: 0 | times: 100 | round -%}
+{%- if threshold > 0 and cart.item_count > 0 -%}
+  {%- liquid
+    assign total = cart.total_price
+    assign remaining = threshold | minus: total
+    assign pct = total | times: 100 | divided_by: threshold | at_most: 100
+  -%}
+  <div class="softie-ship" role="status">
+    <p class="softie-ship__text">
+      {%- if remaining > 0 -%}
+        You're {{ remaining | money_without_trailing_zeros }} away from free shipping
+      {%- else -%}
+        You've got free shipping!
+      {%- endif -%}
+    </p>
+    <div class="softie-ship__track" aria-hidden="true">
+      <div class="softie-ship__fill" style="width: {{ pct }}%"></div>
+    </div>
+  </div>
+{%- endif -%}
