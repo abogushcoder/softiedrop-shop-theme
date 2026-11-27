@@ -18,14 +18,12 @@
         "type": "url",
         "id": "softie_main_site_url",
         "label": "Main website",
-        "default": "https://softiedrop.com",
         "info": "The logo links here."
       },
       {
         "type": "url",
         "id": "softie_tiktok_url",
-        "label": "TikTok profile",
-        "default": "https://www.tiktok.com/@softiedrop"
+        "label": "TikTok profile"
       },
       {
         "type": "text",

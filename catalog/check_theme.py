@@ -86,6 +86,30 @@ for f in files:
 cur = json.loads(rd('config/settings_data.json'))['current']
 for k in cur:
     if k not in gs and k not in ('color_schemes', 'sections', 'content_for_index', 'blocks'): warn.append(f'settings_data: "{k}" is not a theme setting')
+
+# 6 values Shopify itself rejects: link defaults, range steps, select options
+def _fits(d, v):
+    t = d.get('type')
+    if t == 'range':
+        k = (v - d['min']) / d['step']
+        return d['min'] <= v <= d['max'] and abs(k - round(k)) < 1e-9
+    if t in ('select', 'radio'): return v in [o['value'] for o in d['options']]
+    return True
+schema_all = json.loads(rd('config/settings_schema.json'))
+if not schema_all: errs.append('config/settings_schema.json is empty')
+for g in schema_all:
+    for x in g.get('settings', []):
+        if x.get('type') == 'url' and 'default' in x and x['default'] not in ('/collections', '/collections/all'):
+            errs.append(f'settings_schema: link setting {x["id"]} may only default to /collections or /collections/all')
+gdefs = {x['id']: x for g in schema_all for x in g.get('settings', []) if 'id' in x}
+for k, v in json.loads(rd('config/settings_data.json'))['current'].items():
+    if k in gdefs and not _fits(gdefs[k], v): errs.append(f'settings_data: {k}={v!r} is not allowed by its setting')
+for f, sch in schemas.items():
+    for x in sch.get('settings', []) + [y for b in sch.get('blocks', []) for y in b.get('settings', [])]:
+        if x.get('type') == 'url' and 'default' in x and x['default'] not in ('/collections', '/collections/all'):
+            errs.append(f'{f}: link setting {x.get("id")} has a default Shopify rejects')
+        if 'default' in x and x.get('type') in ('range', 'select', 'radio') and not _fits(x, x['default']):
+            errs.append(f'{f}: default of {x.get("id")} is not allowed')
 print(f'{len(files)} files checked, {len(schemas)} schemas')
 for w in warn: print('warn:', w)
 for e in errs: print('ERROR:', e)
