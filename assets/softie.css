@@ -23,6 +23,8 @@
 }
 
 body, .h0, .h1, .h2, .h3, .h4, .h5, h1, h2, h3, h4, h5 { letter-spacing: 0; }
+/* Dawn fades body text to 75%; the main site uses solid plum, so text here is solid too. */
+body, [class*="color-scheme-"] { color: rgb(var(--color-foreground)); }
 h1, h2, h3, .h0, .h1, .h2, .h3 { text-wrap: balance; line-height: 1.08; }
 .rte, p { text-wrap: pretty; }
 
@@ -32,6 +34,8 @@ h1, h2, h3, .h0, .h1, .h2, .h3 { text-wrap: balance; line-height: 1.08; }
   letter-spacing: 0;
 }
 .button--secondary { --color-button: 255, 255, 255; }
+/* Dawn draws a primary button's border in the button's own color; the brand wants a plum outline on every pill. */
+.button:not(.button--tertiary), .shopify-payment-button__button--unbranded { --border-opacity: 1; }
 .softie-pill {
   display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
   min-height: 4.4rem; padding: 0 1.8rem; border-radius: 999px;
@@ -110,9 +114,11 @@ h1, h2, h3, .h0, .h1, .h2, .h3 { text-wrap: balance; line-height: 1.08; }
 .softie-ship { margin: 0 0 1.6rem; }
 .softie-ship__text { margin: 0 0 .8rem; font-weight: 600; font-size: 1.5rem; }
 .softie-ship__track { height: 1.2rem; border-radius: 999px; border: 2px solid var(--softie-plum); background: var(--softie-white); overflow: hidden; }
+/* Dawn hides empty divs (div:empty { display: none }); the fill is empty on purpose. */
+.softie-ship .softie-ship__fill { display: block; }
 .softie-ship__fill { height: 100%; background: var(--softie-pink); border-right: 2px solid var(--softie-plum); transition: width .3s ease; }
 .softie-ship__fill[style*="100%"] { border-right: 0; }
-.drawer__header + .softie-ship, .drawer .softie-ship { padding: 0 3rem; }
+.drawer__inner > .softie-ship { margin-bottom: 1.2rem; }
 @media (prefers-reduced-motion: reduce) { .softie-ship__fill { transition: none; } }
 
 /* ---------- home hero ---------- */
@@ -120,8 +126,8 @@ h1, h2, h3, .h0, .h1, .h2, .h3 { text-wrap: balance; line-height: 1.08; }
 .softie-hero__title { font-size: clamp(3.6rem, 7vw, 7.2rem); margin: 0 auto 1.4rem; max-width: 14ch; }
 .softie-hero__text { font-size: clamp(1.7rem, 2vw, 2rem); margin: 0 auto 2.4rem; max-width: 40ch; }
 .softie-hero__blobs { display: flex; justify-content: center; align-items: flex-end; gap: clamp(.6rem, 2vw, 1.8rem); margin: 3.2rem auto 0; max-width: 64rem; }
-.softie-hero__blobs svg { width: clamp(4.8rem, 11vw, 9.6rem); height: auto; }
-.softie-hero__blobs svg:nth-child(2n) { width: clamp(4rem, 9vw, 8rem); }
+.softie-hero__blobs svg { width: clamp(5.6rem, 15vw, 9.6rem); height: auto; }
+.softie-hero__blobs svg:nth-child(2n) { width: clamp(4.8rem, 12vw, 8rem); }
 
 /* ---------- next-live banner ---------- */
 .softie-live-banner { padding: 1.2rem max(4vw, 1.6rem); }
@@ -158,6 +164,8 @@ h1, h2, h3, .h0, .h1, .h2, .h3 { text-wrap: balance; line-height: 1.08; }
 .softie-form__check { display: flex; gap: 1.2rem; align-items: flex-start; font-size: 1.5rem; line-height: 1.45; font-weight: 400; }
 .softie-form__check input { width: 2.2rem; height: 2.2rem; margin: .2rem 0 0; flex: none; accent-color: var(--softie-plum); }
 .softie-form__msg { margin: 0; min-height: 1.5em; font-weight: 500; }
+/* Keep the message line in place while empty (Dawn hides empty p), so screen readers announce it and nothing jumps. */
+.softie-form .softie-form__msg { display: block; }
 .softie-form__msg.err { color: var(--softie-alert); font-weight: 600; }
 .softie-form__msg.good { font-weight: 600; }
 .softie-form [hidden] { display: none !important; }
