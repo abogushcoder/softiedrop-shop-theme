@@ -5,7 +5,8 @@
 {%- endcomment -%}
 {%- liquid
   assign t = product.type | downcase
-  assign label = blank
+  assign label = ''
+  assign mod = ''
   if t contains 'foam'
     assign label = 'Foam'
     assign mod = 'foam'
@@ -17,6 +18,6 @@
     assign mod = 'gel'
   endif
 -%}
-{%- if label != blank -%}
+{%- if label != '' -%}
   <span class="softie-texture softie-texture--{{ mod }}">{{ label }}</span>
 {%- endif -%}

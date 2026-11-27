@@ -1,10 +1,8 @@
 {%- comment -%}
   softie: loaded by both layouts right after Dawn's base.css.
-  Brand font (Fredoka), browser theme color, home-screen icon and the brand stylesheet.
+  Brand font (Fredoka, self-hosted on Shopify's CDN), browser theme color, home-screen icon and the brand stylesheet.
 {%- endcomment -%}
 <meta name="theme-color" content="#CFF3E4">
 <link rel="apple-touch-icon" href="{{ 'softie-apple-touch-icon.png' | asset_url }}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap">
+{{ 'fredoka-latin.woff' | asset_url | preload_tag: as: 'font', type: 'font/woff', crossorigin: 'anonymous' }}
 {{ 'softie.css' | asset_url | stylesheet_tag }}

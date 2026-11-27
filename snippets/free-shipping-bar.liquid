@@ -5,13 +5,13 @@
   Lives inside the parts of the cart Dawn re-renders, so it updates when the cart changes.
 {%- endcomment -%}
 {%- assign threshold = settings.softie_free_shipping_threshold | default: 0 | times: 100 | round -%}
-{%- if threshold > 0 and cart.item_count > 0 -%}
+{%- if threshold > 0 and cart.item_count > 0 and cart.currency.iso_code == 'USD' -%}{%- comment -%} the threshold is in US dollars {%- endcomment -%}
   {%- liquid
     assign total = cart.total_price
     assign remaining = threshold | minus: total
     assign pct = total | times: 100 | divided_by: threshold | at_most: 100
   -%}
-  <div class="softie-ship" role="status">
+  <div class="softie-ship">
     <p class="softie-ship__text">
       {%- if remaining > 0 -%}
         You're {{ remaining | money_without_trailing_zeros }} away from free shipping
