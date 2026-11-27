@@ -1,0 +1,19 @@
+# Runs Shopify's Theme Check (the official theme linter) on every push and prints the results
+# in the job log. Shopify's GitHub sync ignores this folder.
+name: Theme Check
+on:
+  push:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  theme-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Theme Check
+        run: npx --yes @shopify/cli@4.9.5 theme check --path . --output text --fail-level error
