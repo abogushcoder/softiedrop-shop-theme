@@ -27,10 +27,33 @@
   "name": "Next live banner",
   "tag": "section",
   "settings": [
-    { "type": "paragraph", "content": "Shows the next TikTok live from your schedule sheet. Hides itself if nothing is scheduled or the schedule can't be loaded." },
-    { "type": "text", "id": "loading_text", "label": "Text while loading", "default": "Checking the live schedule…" },
-    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" }
+    {
+      "type": "paragraph",
+      "content": "Shows the next TikTok live from your schedule sheet. Hides itself if nothing is scheduled or the schedule can't be loaded."
+    },
+    {
+      "type": "text",
+      "id": "loading_text",
+      "label": "Text while loading",
+      "default": "Checking the live schedule…"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
   ],
-  "presets": [{ "name": "Next live banner" }]
+  "presets": [
+    {
+      "name": "Next live banner"
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  }
 }
 {% endschema %}

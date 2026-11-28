@@ -70,13 +70,16 @@
       }
     }
 
+    const onVisible = () => { if (!document.hidden) { load(); render(); } };
+    const timers = [setInterval(render, 30000), setInterval(load, 300000)];
+    document.addEventListener('visibilitychange', onVisible);
+    // Theme editor: when this section is re-rendered or removed, stop the old copy's timers.
+    root._softieStop = () => { timers.forEach(clearInterval); document.removeEventListener('visibilitychange', onVisible); };
     load();
-    setInterval(render, 30000);
-    setInterval(load, 300000);
-    document.addEventListener('visibilitychange', () => { if (!document.hidden) { load(); render(); } });
   }
 
   const start = () => document.querySelectorAll('[data-softie-live]').forEach(el => { if (!el.dataset.bound) { el.dataset.bound = '1'; setup(el); } });
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+  document.addEventListener('shopify:section:unload', e => e.target.querySelectorAll('[data-softie-live]').forEach(el => el._softieStop && el._softieStop()));
   document.addEventListener('shopify:section:load', start);   // theme editor
 })();

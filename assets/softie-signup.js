@@ -47,7 +47,7 @@
             : phone ? 'You’re in for email alerts! We couldn’t add that phone number, so text alerts aren’t on.'
             : 'You’re in! We’ll email you before every live.', 'good');
           form.reset(); smsRow.hidden = true;
-        } else if (res.status === 400 && out.error) {
+        } else if (res.status === 400 && /email|phone/i.test(out.error || '')) {   // the Worker's friendly messages only
           say(out.error, 'err', /phone/i.test(out.error) ? phoneEl : /email/i.test(out.error) ? emailEl : null);
         } else if (res.status === 429) {
           say('Too many tries in a row. Please wait a minute and try again.', 'err');

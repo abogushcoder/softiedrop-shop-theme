@@ -2,3 +2,8 @@ MatchingTranslations:
   enabled: false
 TemplateLength:
   enabled: false
+
+# softie: squish-meter is rendered from a custom_liquid block in templates/product.json
+OrphanedSnippet:
+  ignore:
+    - snippets/squish-meter.liquid

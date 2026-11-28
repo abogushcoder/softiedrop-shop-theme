@@ -10,7 +10,7 @@
         "softie_facts": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<div class=\"softie-facts\">{% render 'texture-badge', product: product %}{% if product.metafields.softie.size_cm != blank %}<span class=\"softie-texture softie-texture--gel\">{{ product.metafields.softie.size_cm.value }} cm</span>{% endif %}</div>"
+            "custom_liquid": "<div class=\"softie-facts\">{% render 'texture-badge', product: product %}{% if product.metafields.softie.size_cm != blank %}<span class=\"softie-chip\">{{ product.metafields.softie.size_cm.value | round: 1 }} cm</span>{% endif %}</div>"
           }
         },
         "price": {
@@ -23,6 +23,13 @@
             "text_style": "body",
             "inventory_threshold": 5,
             "show_inventory_quantity": true
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
           }
         },
         "softie_meter": {
@@ -55,7 +62,7 @@
         "softie_live_link": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "{% if settings.softie_tiktok_url != blank %}<p><a class=\"softie-live-link\" href=\"{{ settings.softie_tiktok_url }}\" target=\"_blank\" rel=\"noopener\">See it squished on a live</a></p>{% endif %}"
+            "custom_liquid": "<p><a class=\"softie-live-link\" href=\"https://www.tiktok.com/@softiedrop\" target=\"_blank\" rel=\"noopener\">See it squished on a live</a></p>"
           }
         }
       },
@@ -64,6 +71,7 @@
         "softie_facts",
         "price",
         "inventory",
+        "variant_picker",
         "softie_meter",
         "description",
         "softie_safety",
